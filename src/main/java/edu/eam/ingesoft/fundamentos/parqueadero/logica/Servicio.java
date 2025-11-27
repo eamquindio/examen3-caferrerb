@@ -17,14 +17,15 @@ public class Servicio {
 
     /**
      * Crea una nueva instancia de Servicio y calcula su costo.
-     * El costo debe calcularse automáticamente al crear el servicio usando calcularCosto().
      * @param horaIngreso Hora en que ingresó el vehículo (1-22)
      * @param horaSalida Hora en que salió el vehículo (2-23)
      * @param vehiculo Objeto Vehiculo que utilizó el servicio
      */
     public Servicio(int horaIngreso, int horaSalida, Vehiculo vehiculo) {
-        // TODO: Implementar constructor
-        // Pista: Asignar atributos y usar calcularCosto() para el costo
+        this.horaIngreso = horaIngreso;
+        this.horaSalida = horaSalida;
+        this.vehiculo = vehiculo;
+        this.costo = calcularCosto();
     }
 
     // ==================== GETTERS ====================
@@ -64,23 +65,23 @@ public class Servicio {
      * @return Número de horas de uso (horaSalida - horaIngreso)
      */
     public int calcularHoras() {
-        // TODO: Implementar método
-        return 0;
+        return horaSalida - horaIngreso;
     }
 
     /**
      * Calcula el costo total del servicio aplicando tarifas y descuentos.
      * Fórmula: costo = horas × tarifaVehículo × (1 - descuentoPropietario)
-     *
-     * Pista:
-     * - El vehículo tiene el método obtenerTarifaHora()
-     * - El vehículo tiene el propietario asociado con getPropietario()
-     * - El propietario tiene el método obtenerDescuento()
-     *
+     * recordar que el vehiculo tiene el propietario asociado y este tiene el metodo para obtener el descuento
      * @return El costo total del servicio
      */
     public double calcularCosto() {
-        // TODO: Implementar método
-        return 0;
+        int horas = calcularHoras();
+        double tarifaHora = vehiculo.obtenerTarifaHora();
+        double descuento = vehiculo.getPropietario().obtenerDescuento();
+
+        double subtotal = horas * tarifaHora;
+        double valorDescuento = subtotal * descuento;
+
+        return subtotal - valorDescuento;
     }
 }
